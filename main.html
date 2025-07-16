@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Control Panel</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Rajdhani', 'Orbitron', sans-serif;
+      background-color: #0a0a12;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(100, 65, 255, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 255, 252, 0.1) 0%, transparent 20%),
+        linear-gradient(to bottom, #0a0a12 0%, #14142a 100%);
+      color: #00fffc;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 40px;
+      text-align: center;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(0, 255, 252, 0.5);
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00fffc, transparent);
+      box-shadow: 0 0 10px rgba(0, 255, 252, 0.5);
+    }
+
+    .btn-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 600px;
+      width: 90%;
+    }
+
+    .btn {
+      padding: 18px 25px;
+      background: rgba(15, 15, 35, 0.7);
+      border-radius: 8px;
+      border: 1px solid rgba(0, 255, 252, 0.3);
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #00fffc;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 255, 252, 0.1) 0%, rgba(100, 65, 255, 0.2) 100%);
+      z-index: -1;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 255, 252, 0.3);
+      border-color: rgba(0, 255, 252, 0.6);
+    }
+
+    .btn:hover::before {
+      opacity: 1;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 10px rgba(0, 255, 252, 0.3);
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent,
+        transparent,
+        transparent,
+        rgba(0, 255, 252, 0.1),
+        transparent
+      );
+      transform: rotate(30deg);
+      animation: shine 6s infinite linear;
+      z-index: -1;
+    }
+
+    @keyframes shine {
+      0% { transform: rotate(30deg) translate(-30%, -30%); }
+      100% { transform: rotate(30deg) translate(30%, 30%); }
+    }
+
+    /* Glitch effect on hover */
+    .btn:hover::after {
+      animation: glitch 0.5s linear infinite;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .btn-container {
+        grid-template-columns: 1fr;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .btn {
+        padding: 15px 20px;
+        font-size: 16px;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* Terminal cursor effect */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    h1::before {
+      content: '|';
+      animation: blink 1s step-end infinite;
+      margin-left: 5px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>ZUKO-MD</h1>
+  <div class="btn-container">
+    <button onclick="window.open(`/qr`)" class="btn">QR Scanner</button>
+    <button onclick="window.open(`/pair`)" class="btn">Pair Device</button>
+    <button onclick="window.open(`https://github.com/Neggy5`)" class="btn">GitHub Repo</button>
+    <button onclick="window.open(`https://whatsapp.com/channel/0029Vb5iurcFsn0g8SxxBs0p`)" class="btn">Channel</button>
+  </div>
+
+  <script>
+    // Add typing effect to the title
+    const title = document.querySelector('h1');
+    const originalText = 'CONTROL PANEL';
+    let i = 0;
+    
+    function typeWriter() {
+      if (i < originalText.length) {
+        title.textContent = originalText.substring(0, i+1);
+        i++;
+        setTimeout(typeWriter, 100);
+      } else {
+        title.innerHTML = originalText + '<span style="opacity:0">|</span>';
+      }
+    }
+    
+    // Start the typing effect after a short delay
+    setTimeout(() => {
+      title.textContent = '';
+      typeWriter();
+    }, 500);
+  </script>
+</body>
+</html>

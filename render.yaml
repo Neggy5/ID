@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: zuko-md-web
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    env: node
+    envVars:
+      - key: MEGA_EMAIL
+        fromDatabase: false
+      - key: MEGA_PASSWORD
+        fromDatabase: false
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
